@@ -5,7 +5,7 @@
 ########################################################################################################################
 
 
-FROM python:3
+FROM python:3.8
 
 MAINTAINER m.sakharov@butik.ru
 
@@ -26,6 +26,8 @@ RUN apt-get update && apt-get install -y \
 COPY Pipfile /acceptance-tests-core-dir/
 
 WORKDIR /acceptance-tests-core-dir/
+### See your workdir content
+RUN ls -lah
 
 ### Install dependencies from Pipfile
-RUN pipenv install
+RUN set -ex && pipenv install
