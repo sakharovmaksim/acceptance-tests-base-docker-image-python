@@ -26,6 +26,8 @@ six = "*"
 tqdm = "*"
 urllib3 = "*"
 wcwidth = "*"
+pytest-parallel = "*"
+allure-pytest = "*"
 
 [requires]
 python_version = "3.8"
