@@ -26,7 +26,7 @@ six = "*"
 tqdm = "*"
 urllib3 = "*"
 wcwidth = "*"
-pytest-parallel = "*"
+pytest-xdist = "*"
 allure-pytest = "*"
 
 [requires]
