@@ -7,7 +7,7 @@
 
 FROM python:3.8
 
-MAINTAINER m.sakharov@butik.ru
+MAINTAINER msakharov@zoon.ru
 
 ENV TZ=Europe/Moscow
 ENV LC_ALL C.UTF-8
