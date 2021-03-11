@@ -5,29 +5,21 @@
 ########################################################################################################################
 
 
-FROM python:3.8.6-buster
+FROM python:3.9.2-buster
 
 MAINTAINER msakharov@zoon.ru
 
-ENV TZ=Europe/Moscow
-ENV LC_ALL C.UTF-8
-ENV LANG C.UTF-8
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt-get update -qq
 
-RUN apt-get update && apt-get install -y \
-    git \
-    wget \
-    unzip \
-    rsync \
-    vim \
-    pipenv \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get install -y --no-install-recommends software-properties-common apt-utils wget openssl libgssapi-krb5-2 \
+    tzdata locales curl
 
-COPY Pipfile /acceptance-tests-core-dir/
+RUN echo "Europe/Moscow" > /etc/timezone \
+    && rm -f /etc/localtime \
+    && dpkg-reconfigure -f noninteractive tzdata
 
+# Install some needed packages
+RUN pip3 install pipenv tqdm pre-commit && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir /acceptance-tests-core-dir
 WORKDIR /acceptance-tests-core-dir/
-### See your workdir content
-RUN ls -lah
-
-### Install dependencies from Pipfile
-RUN set -ex && pipenv install
